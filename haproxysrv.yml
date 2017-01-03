@@ -1,0 +1,51 @@
+ - name: File=haproxysrv.yml launch HAProxy server in Metapod
+   hosts: local
+   vars_files:
+    - vars/var.yml
+
+   tasks:
+
+   - name: Ensure New server HAproxy Server is up.
+     os_server:
+       state: present
+       name: "{{ haproxy }}"
+       # run nova image-list to get an image and put its id below.
+       image: "{{ image_haproxy }}"
+       # fill in your key name here
+       key_name: "{{ keypair }}"
+       flavor: "{{ flavor_ha }}"
+       security_groups: default
+       nics:
+         - net-id: "{{ private_net }}"
+
+ - name: launch HAproxy server in Metapod and record IP address
+   hosts: local
+   vars_files:
+    - vars/var.yml
+    
+   tasks:
+   - name: Display Network
+     shell: nova show "{{ haproxy }}" | awk 'FNR == 27 { print $5 } '
+     register: shell_output2
+   - debug: msg="{{ shell_output2.stdout }}"
+   - local_action: copy content="{{ shell_output2.stdout }}" dest=output/haproxy.txt
+   - lineinfile:
+       dest: hosts
+       line: ' {{ shell_output2.stdout }}'
+       insertafter: EOF
+   - lineinfile:
+       dest: vars/var.yml
+       line: 'haproxy_ip: {{ shell_output2.stdout }}'
+       insertafter: EOF
+
+ - name: Pause
+   hosts: local
+   vars_files:
+    - vars/var.yml
+   tasks:
+   - name: Pause for haproxy services and web services to start
+     action: pause seconds=10
+
+
+
+

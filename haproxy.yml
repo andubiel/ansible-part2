@@ -1,0 +1,22 @@
+
+- name: File=haproxy.yml Copy haproxy.cfg to haproxy
+  hosts: haproxy
+  user: cloud
+  sudo: True
+  vars_files:
+    - vars/var.yml
+
+  tasks:
+  - copy: src=haproxy.cfg dest=/etc/haproxy/haproxy.cfg
+
+- name: Restart haproxy service
+  #hosts: haproxy
+  hosts: haproxy
+  user: cloud
+  sudo: True 
+  vars_files:
+    - vars/var.yml
+  tasks:
+     - name: Execute the script
+       shell: sudo service haproxy restart
+

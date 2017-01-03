@@ -1,0 +1,29 @@
+ - name: File=neutronport.yml  List Neutron Port and Floating IPS
+   hosts: local
+   vars_files:
+    - vars/var.yml
+
+   tasks:
+   - name: Display Neutron Port from VM
+     shell: neutron port-list | grep {{ haproxy_ip }} | awk '{ print $2 } '
+     register: shell_output2
+   - debug: msg= "{{ shell_output2.stdout }}"
+   - local_action: copy content= "{{ shell_output2.stdout }}" dest=output/neutronport.txt
+   - lineinfile:
+       dest: vars/var.yml
+       line: 'neutronport: {{ shell_output2.stdout }}'
+       insertafter: EOF
+
+ - name: Pause 
+   connection: local
+   hosts: local
+   gather_facts: false
+   vars_files:
+    - vars/var.yml
+
+   tasks:
+   - name: Wait for  port
+     action: pause seconds=10
+
+
+

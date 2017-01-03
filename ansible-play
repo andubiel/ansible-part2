@@ -1,0 +1,1 @@
+ansible-playbook main.yml && sudo ansible-playbook -i webhosts apache.yml && sudo ansible-playbook haproxy.yml && ansible-playbook neutronport.yml && ansible-playbook floatingIP.yml

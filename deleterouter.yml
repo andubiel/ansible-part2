@@ -1,0 +1,12 @@
+- name: launch Webserver1 in Metapod
+  hosts: local
+  vars_files:
+    - vars/var.yml
+
+  tasks:
+
+  - name: Create a demo router
+    os_router:
+     state: absent
+     name: demo-router
+

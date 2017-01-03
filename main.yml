@@ -1,0 +1,4 @@
+     - include: websrv1.yml
+     - include: websrv2.yml
+     - include: haproxysrv.yml
+     

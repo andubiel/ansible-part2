@@ -1,0 +1,11 @@
+
+- name: Cleanup Web1
+  hosts: local
+  user: cloud
+  vars_files:
+    - vars/var.yml
+
+  tasks:
+ #   shell: sudo su -
+  - shell: nova delete {{ webserver1 }}
+

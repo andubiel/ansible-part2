@@ -1,0 +1,22 @@
+- name: File=FloatingIP Associate Floating IP address to HAProxy  
+  connection: local
+  hosts: local
+  gather_facts: false
+  vars_files:
+    - vars/var.yml
+  tasks:
+   - name: Associate Port to FLIP  
+     shell: neutron floatingip-associate {{ floatingid }} {{ neutronport }}
+
+- name: List Floating IP address for Haproxy
+  connection: local
+  hosts: local
+  gather_facts: false
+  vars_files:
+    - vars/var.yml
+
+  tasks:
+   - name: List IPs
+     shell: neutron floatingip-list --tenant_id {{ tenant_id }}  | grep {{ neutronport }} 
+     register: shell_output2
+   - debug: msg="{{ shell_output2.stdout }}"

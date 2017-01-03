@@ -1,0 +1,4 @@
+     - include: deleteweb1.yml
+     - include: deleteweb2.yml
+     - include: deleteha.yml
+     

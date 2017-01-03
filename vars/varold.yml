@@ -1,0 +1,26 @@
+---
+#Tenant variables
+keypair: cloudvt-ansible
+security_group: default,Internal-all
+tenant_name: cloudvt-ansible-lab
+tenant_id: 1df262216a7642c2b8f5cd8588498dab
+user: cloudvt
+#Image variables
+image_haproxy: 923a69bd-833d-4944-9d5b-18ac626cc6a6
+image_web: 360ad504-65eb-4db3-a4ad-6278e4542c5f
+#Server Names
+webserver1: webserver1team31
+webserver2: webserver2team31
+haproxy: haproxyteam31
+#flavors
+flavor_web: c0c28895-8a18-42d6-9eed-2f78b187ea55
+flavor_ha: e0e3d365-f495-43f9-b0ea-7037ea337576   
+#IP adresses
+haproxy_ip: 10.8.8.97
+#network
+private_net: 4d6880f2-367f-456f-9a1d-e3f5382d408f
+#floatingIP
+neutronport: 1aa0289b-f46c-4537-95b0-46cac3797095
+floatingid: 50dbee51-22dd-4042-947d-2cdc2b410952
+
+ 

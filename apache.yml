@@ -1,0 +1,39 @@
+- name: File=apache.yml Update Ubuntu
+  hosts: web
+  user: cloud
+  sudo: True 
+  vars_files:
+    - vars/var.yml
+  tasks:
+     - name: Execute the script
+       shell: sudo apt-get -y update
+       
+
+- name: Install Apache
+  hosts: web
+  user: cloud
+  sudo: True
+  vars_files:
+    - vars/var.yml
+  tasks:
+     - name: Execute the script
+       shell: sudo apt-get -y install apache2
+              
+- name: Copy webpage files
+  hosts: web
+  user: cloud
+  sudo: True
+  vars_files:
+    - vars/var.yml
+
+  tasks:
+  - copy: src=Screenshot2.png  dest=/var/www/html/
+
+- name: Copy webpage files
+  hosts: web
+  user: cloud
+  sudo: True
+  vars_files:
+    - vars/var.yml
+  tasks:
+  - copy: src=index.html  dest=/var/www/html/
